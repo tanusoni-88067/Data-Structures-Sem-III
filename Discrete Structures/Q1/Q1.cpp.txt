@@ -1,0 +1,44 @@
+#include <iostream> 
+using namespace std; 
+int main() {  
+  int v;     
+  cout << "Enter the number of vertices: ";     
+  cin >> v;
+         
+  int matrix[v][v];     
+  for (int i = 0; i < v; i++)         
+   for (int j = 0; j < v; j++)             
+      matrix[i][j] = 0;          
+  for (int i = 0, e; i < v; i++){         
+ cout << "Enter the number of vertices adjacent to vertex "              << i + 1 << ": ";         
+  cin >> e;
+                  
+  for (int j = 0, f; j < e; j++){             
+  cout << "Enter vertex that is adjacent to vertex "<< i + 1 <<  ": ";             
+  cin >> f;                         
+  matrix[i][f - 1] = 1;         
+ }     
+}         
+ cout << "\nADJACENCY MATRIX\n-----------------\n";     
+ for (int i = 0; i < v; i++) {         
+   for (int j = 0; j < v; j++)             
+      cout << matrix[i][j] << " "; 
+      cout << endl;     
+}         
+
+ int flag = 0;    
+ for (int i = 0; i < v; i++){         
+    int rowSum = 0;         
+    for (int j = 0; j < v; j++)             
+       rowSum += matrix[i][j];        
+  // Check condition for Complete Graph        
+  if (rowSum != (v - 1))            
+     flag = 1;     
+} 
+        
+ if (!flag)         
+   cout << "\nGraph is complete!\n";     
+ else        
+   cout << "\nGraph is not complete!\n";     
+ return 0; 
+} 

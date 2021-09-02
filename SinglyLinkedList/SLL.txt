@@ -1,0 +1,233 @@
+#include<iostream>
+
+using namespace std;
+
+class node{
+	public:
+		int info;
+		node*next;
+};
+
+class LINKEDLIST{
+	node*head;
+	node*tail;
+	node*temp;
+	node*current;
+
+public:
+	LINKEDLIST()
+	{
+		head=temp=tail=NULL;
+	}
+
+	void AddToHead();
+	void AddToTail();
+	void DeleteFromHead();
+	void DeleteFromTail();
+	void InsertAtIndex();
+	void DeleteAtIndex();
+	void LinearSearch();
+	void Display();
+};
+
+int main()
+{
+int ch, data; LINKEDLIST ob1,ob2; char c;
+
+
+	do{
+		cout<<"MENU"<<endl;
+		cout<<"1. Add a node to head"<<endl;
+		cout<<"2. Add a node to tail"<<endl;
+		cout<<"3. Delete a node from head"<<endl;
+		cout<<"4. Delete a node from tail"<<endl;
+		cout<<"5. Insert a node at index"<<endl;
+		cout<<"6. Delete a node at index"<<endl;
+		cout<<"7. Linear Search"<<endl;
+		cout<<"8. Display node"<<endl;
+		cout<<"ENTER CHOICE :";
+		cin>>ch;
+
+		switch(ch)
+		{
+		  case 1: { ob1.AddToHead();
+		            ob1.Display();
+		        	break;
+		          }
+		  case 2: { ob1.AddToTail();
+		            ob1.Display();
+		        	break;
+		          }
+		 case 3: { ob1.DeleteFromHead();
+		            ob1.Display();
+		        	break;
+		          }
+
+	     case 4: { ob1.DeleteFromTail();
+		            ob1.Display();
+		        	break;
+		          }
+		 case 5: { ob1.InsertAtIndex();
+		            ob1.Display();
+					break;
+		          }
+		 case 6: { ob1.DeleteAtIndex();
+		            ob1.Display();
+					break;
+		          }
+		 case 7: { ob1.LinearSearch();
+			        break;
+		          }
+	     case 8: { ob1.Display();
+		           break;
+		         }
+		 default: {cout<<"INVALID CHOICE!"<<endl;
+		           break;
+		          }
+
+			}
+			cout<<endl<<endl;
+			cout<<"DO YOU WISH TO CONTINUE?(Y/N)"<<endl;
+			cin>>c;
+		}while(c=='y'||c=='Y');
+
+	}
+
+void LINKEDLIST::AddToHead()
+ {  int data;
+ 	cout<<"Enter data: ";
+ 	cin>>data;
+ 	cout<<endl;
+
+ 	temp=new node;
+ 	temp->info=data;
+ 	temp->next=NULL;
+
+ 	if(head==NULL)
+ 	{
+ 	head=temp;
+ 	tail=temp;
+    }
+
+    else {
+
+    	temp->next=head;
+    	head=temp;
+	}
+ }
+
+void LINKEDLIST::Display(){
+	temp=head;
+	while(temp!=NULL)
+	{   cout<<temp->info;
+	    if(temp->next!=NULL)
+	    cout<<" --> ";
+		temp=temp->next;
+	}
+}
+
+void LINKEDLIST::AddToTail()
+{ int data;
+ 	cout<<"Enter data: ";
+ 	cin>>data;
+ 	cout<<endl;
+
+ 	temp=new node;
+ 	temp->info=data;
+ 	temp->next=NULL;
+
+ 	if(tail==NULL)
+ 	{
+ 		head=temp;
+ 		tail=temp;
+    }
+    else{
+    	tail->next=temp;
+    	tail=temp;
+	}
+}
+
+void LINKEDLIST::DeleteFromHead()
+{
+	temp=head;
+	head=head->next;
+	temp->next=NULL;
+	delete temp;
+}
+
+void LINKEDLIST::DeleteFromTail()
+{   if(head->next==NULL)
+   {
+	 delete head;
+   }
+		temp=head;
+	while(temp->next->next!=NULL)
+	{
+		temp=temp->next;
+	}
+	delete (temp->next);
+	temp->next=NULL;
+	tail=temp;
+}
+
+void LINKEDLIST::InsertAtIndex()
+{ int data,ele;
+ 	cout<<"Enter data: ";
+ 	cin>>data;
+ 	cout<<endl;
+
+ 	temp=new node;
+ 	temp->info=data;
+ 	temp->next=NULL;
+
+ 	cout<<"Enter the data element after which you wish to insert node: ";
+ 	cin>>ele;
+
+ 	current=head;
+ 	while(current->info!=ele)
+ 	{
+ 		current=current->next;
+	}
+	temp->next=current->next;
+	current->next=temp;
+}
+
+void LINKEDLIST::DeleteAtIndex()
+{int ele;
+	cout<<"Enter the data element which you wish to delete: ";
+ 	cin>>ele;
+
+ 	temp=head;
+ 	current=head;
+ 	while(temp->next->info!=ele)
+ 	{
+ 		temp=temp->next;
+ 	}
+ 	while(current->info!=ele)
+ 	{
+ 		current=current->next;
+    }
+    temp->next=current->next;
+    delete current;
+
+}
+
+void LINKEDLIST::LinearSearch()
+{
+	int data; int ctr=0;
+	cout<<"Enter the data element you wish to search for in the linked list: ";
+	cin>>data;
+
+	temp=head;
+	while(temp!=NULL&&temp->info!=data)
+	{
+		temp=temp->next;
+		ctr++;
+	}
+
+	if(temp->info==data)
+	{
+		cout<<"Data element is found at position: "<<ctr+1;
+	}
+
+}

@@ -1,0 +1,131 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+
+class node{
+	public:
+		int data;
+		node *next;
+		node(){
+			next = NULL;
+		}
+};
+
+class LinkedList{
+	node *top;
+	public:
+
+		LinkedList(){
+			top = NULL;
+		}
+
+
+		bool empty()
+		{
+			return (top == NULL);
+		}
+
+		void push(int data){
+			node *temp = new node();
+			temp->data = data;
+			if (empty()){
+				top = temp;
+			}
+			else{
+				temp->next = top;
+				top = temp;
+			}
+		}
+
+
+		void pop(){
+			if (empty()){
+				cout<<"Stack is Empty"<<endl;
+			}
+			else if (top->next == NULL){
+				cout<<"Element Popped: "<<top->data<<endl;
+				delete(top);
+				top = NULL;
+			}
+			else{
+				node *temp = top;
+				cout<<"Element Popped: "<<top->data<<endl;
+				top = temp->next;
+				delete(temp);
+
+
+			}
+
+		}
+
+		void topele()
+		{
+			cout<<"The Top Element is : "<<top->data;
+		}
+
+		void clear(LinkedList &l)
+		{
+			if (empty()){
+				cout<<"Stack is Empty"<<endl;
+			}
+			else
+			{
+				while(top != NULL)
+				{
+					pop();
+				}
+				cout<<"Stack is Cleared";
+			}
+
+		}
+
+
+};
+
+
+int main() {
+
+	int choice,data,p;
+	LinkedList ll;
+
+	do {
+		cout<<("------MENU------")<<endl;
+		cout<<("1. Push");
+		cout<<("\n2. Pop");
+		cout<<("\n3. Clear");
+		cout<<("\n4. Top Element");
+		cout<<("\n5. IsEmpty");
+		cout<<("\n0 Exit");
+		cout<<"\nEnter Your Choice: ";
+		cin>>choice;
+		switch (choice)
+		{
+			case 1:
+				cout<<"Enter the Element: ";
+				cin>>data;
+				ll.push(data);
+				break;
+
+			case 2:
+				ll.pop();
+				break;
+
+			case 3:
+				ll.clear(ll);
+				break;
+
+			case 4:
+				ll.topele();
+				break;
+
+			case 5:
+				string s=(ll.empty())? "Yes":"NO";
+				cout<<s;
+				break;
+
+
+		}
+		cout<<endl<<endl;
+	} while (choice != 0);
+
+}

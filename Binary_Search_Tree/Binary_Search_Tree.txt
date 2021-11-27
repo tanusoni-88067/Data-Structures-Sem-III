@@ -1,0 +1,134 @@
+#include <iostream>
+#include <stdlib.h>
+using namespace std;
+
+class BST
+{
+	int data;
+	BST *left, *right;
+
+public:
+	BST();
+	BST(int);
+	BST* Insert(BST*, int);
+	void recursive_Inorder(BST*);
+	void recursive_Preorder(BST*);
+	void recursive_Postorder(BST*);
+
+};
+
+BST ::BST()
+{
+	data=0;
+	left=NULL;
+	right=NULL;
+}
+
+BST ::BST(int value)
+{
+	data = value;
+	left = right = NULL;
+}
+
+BST* BST ::Insert(BST* root, int value)
+{
+	if (!root)
+	{
+
+		return new BST(value);
+	}
+
+	if (value > root->data)
+	{
+
+		root->right = Insert(root->right, value);
+	}
+
+	else
+	{
+
+		root->left = Insert(root->left, value);
+	}
+
+	return root;
+}
+
+
+void BST ::recursive_Inorder(BST* root)
+{
+	if (!root)
+	{
+		return ;
+	}
+	recursive_Inorder(root->left);
+	cout << root->data<<" " ;
+	recursive_Inorder(root->right);
+}
+
+void BST ::recursive_Preorder(BST* root)
+{
+	if (!root)
+	{
+		return ;
+	}
+	cout << root->data <<" ";
+	recursive_Preorder(root->left);
+	recursive_Preorder(root->right);
+}
+
+void BST ::recursive_Postorder(BST* root)
+{
+	if (!root)
+	{
+		return ;
+	}
+	recursive_Postorder(root->left);
+	recursive_Postorder(root->right);
+	cout << root->data <<" ";
+}
+
+
+
+
+int main()
+{
+	BST b, *root = NULL;
+	int x,choice;
+	cout<<"Enter The Root : ";
+	cin>>x;
+	root = b.Insert(root, x);
+	do
+	{
+	    cout<<("\n--MENU--");
+		cout<<("\n1.Insert");
+		cout<<("\n2.InOrder");
+		cout<<("\n3.PreOrder");
+		cout<<("\n4.PostOrder");
+		cout<<("\n0 Exit");
+		cout<<"\nEnter Your Choice: ";
+		cin>>choice;
+		switch (choice)
+		{
+			case 1:
+				cout<<"Enter the Element : ";
+				cin>>x;
+				b.Insert(root, x);
+				break;
+
+			case 2:
+				b.recursive_Inorder(root);
+				break;
+			case 3:
+				b.recursive_Preorder(root);
+				break;
+			case 4:
+				b.recursive_Postorder(root);
+		}
+		cout<<endl;
+
+	}while(choice!=0);
+	return 0;
+
+}
+
+
